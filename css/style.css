@@ -1773,16 +1773,27 @@ section {
 
 .rnd-text {
     margin-bottom: 3rem;
-    text-align: center;
+}
+
+.rnd-text.rnd-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.rnd-block {
+    padding: 0;
+}
+
+.rnd-block h3 {
+    margin-top: 0;
 }
 
 .rnd-text h3 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
     color: var(--text-dark);
-    text-align: center !important;
-    width: 100%;
-    display: block;
 }
 
 .rnd-text p {
@@ -1790,10 +1801,6 @@ section {
     color: var(--text-light);
     line-height: 1.8;
     margin-bottom: 1.5rem;
-    text-align: left;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .rnd-partners {
@@ -2016,6 +2023,29 @@ section {
     line-height: 1.8;
     flex-grow: 1;
     margin: 0;
+}
+
+/* History Section (Історія розвитку) */
+.history-section {
+    padding: 5rem 0;
+    background: white;
+}
+
+.history-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.history-content p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.history-content p:last-child {
+    margin-bottom: 0;
 }
 
 .quality-process {
@@ -3239,6 +3269,10 @@ section {
     }
 
     .story-content {
+        grid-template-columns: 1fr;
+    }
+
+    .rnd-text.rnd-two-columns {
         grid-template-columns: 1fr;
     }
 
