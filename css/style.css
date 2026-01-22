@@ -2454,6 +2454,11 @@ section {
     font-size: 1.1rem;
     line-height: 1.8;
     color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1rem;
+}
+
+.quality-badge p:last-child {
+    margin-bottom: 0;
 }
 
 .quality-badge strong {
