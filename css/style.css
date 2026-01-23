@@ -1251,7 +1251,7 @@ section {
 .clients-scroll {
     display: flex;
     gap: 2rem;
-    animation: scrollClients 30s linear infinite;
+    animation: scrollClients 15s linear infinite;
     will-change: transform;
 }
 
