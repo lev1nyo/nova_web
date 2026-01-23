@@ -1558,7 +1558,14 @@ section {
 .page-title {
     font-size: 3rem;
     font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.page-company-name {
+    font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 1rem;
+    opacity: 0.95;
 }
 
 .page-subtitle {
@@ -2293,6 +2300,16 @@ section {
 .product-item-special p {
     color: var(--text-light);
     line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.product-item-special p:last-child {
+    margin-bottom: 0;
+}
+
+.product-item-special p strong {
+    color: var(--text-dark);
+    font-weight: 700;
 }
 
 .product-line-applications {
@@ -3277,6 +3294,10 @@ section {
 
     .page-title {
         font-size: 2rem;
+    }
+
+    .page-company-name {
+        font-size: 1.2rem;
     }
 
     .story-content {
