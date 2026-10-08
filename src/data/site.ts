@@ -11,7 +11,7 @@ export function organizationLd(t: { org: { name: string; region: string; localit
   return {
     '@type': 'Organization',
     name: t.org.name,
-    alternateName: 'Novaclean',
+    alternateName: 'NovaClean',
     url,
     email: contacts.email,
     telephone: contacts.phoneTel,

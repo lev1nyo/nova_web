@@ -67,7 +67,7 @@ const partners = partnerLogos.map((p, i) => ({ ...p, name: h.partners.names[i] }
         </div>
       </div>
       <div class="spec-strip reveal">
-        {h.specs.map((s) => <div class="spec-cell"><div class="n">{s.n}{s.n2 && <><br />{s.n2}</>}</div><div class="l">{s.l}</div></div>)}
+        {h.specs.map((s) => <div class="spec-cell"><div class="n">{s.n}{s.n2 && <><span class="sep"> / </span>{s.n2}</>}</div><div class="l">{s.l}</div></div>)}
       </div>
     </div>
   </section>
@@ -134,8 +134,8 @@ const partners = partnerLogos.map((p, i) => ({ ...p, name: h.partners.names[i] }
 
   <section class="section">
     <div class="container">
-      <div class="section-head section-head--split reveal">
-        <div style="display:grid;gap:16px"><div class="eyebrow">{h.partners.eyebrow}</div><h2 class="h-xl">{h.partners.title}</h2></div>
+      <div class="section-head section-head--split section-head--aligned reveal">
+        <div class="head-copy"><div class="eyebrow">{h.partners.eyebrow}</div><h2 class="h-lg">{h.partners.title}</h2></div>
         <p class="lead">{h.partners.lead}</p>
       </div>
       <div class="partners-marquee reveal">
