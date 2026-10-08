@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Intro from '../components/Intro.astro';
+import { getDict, pageUrl, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Файл сторінки, напр. "about.html" (для головної — "index.html") */
+  page: string;
+  jsonLd?: Record<string, unknown>;
+}
+const { lang, title, description, page, jsonLd } = Astro.props;
+const t = getDict(lang);
+const canonical = pageUrl(lang, page);
+const isHome = page === 'index.html';
+const ld = jsonLd ? { '@context': 'https://schema.org', ...jsonLd } : null;
+---
+<!doctype html>
+<html lang={t.htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F3F8FC" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="uk" href={pageUrl('uk', page)} />
+    <link rel="alternate" hreflang="en" href={pageUrl('en', page)} />
+    <link rel="alternate" hreflang="x-default" href={pageUrl('uk', page)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={t.ogLocale} />
+    <meta property="og:locale:alternate" content={getDict(lang === 'uk' ? 'en' : 'uk').ogLocale} />
+    <meta property="og:site_name" content="Novaclean" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    {isHome && (
+      <script is:inline>
+        // Вступна заставка: лише на головній, раз за сесію вкладки; ?intro — показати знову (для перевірки)
+        (function () {
+          var d = document.documentElement;
+          try {
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var force = /[?&]intro\b/.test(location.search);
+            if (!force && (location.hash || sessionStorage.getItem('nc-intro'))) return;
+          } catch (e) { return; }
+          d.classList.add('nc-intro');
+          // Запобіжник: якщо скрипт заставки не запустився — сторінка не лишається закритою
+          window.__ncIntroT = setTimeout(function () { if (!window.__ncIntro) d.classList.remove('nc-intro'); }, 4000);
+        })();
+      </script>
+    )}
+    {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+  </head>
+  <body>
+    {isHome && <Intro lang={lang} />}
+    <a class="skip-link" href="#main">{t.common.skip}</a>
+    <Header current={page} lang={lang} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script is:inline>
+      // Перший екран показуємо одразу, до першого малювання — без очікування модуля main.js
+      (function () {
+        var vh = innerHeight, els = document.querySelectorAll('.reveal');
+        for (var i = 0; i < els.length; i++) {
+          if (els[i].getBoundingClientRect().top < vh + 200) els[i].classList.add('in', 'instant');
+        }
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          for (var i = 0; i < els.length; i++) els[i].classList.remove('instant');
+        }); });
+      })();
+    </script>
+    <script>
+      import '../scripts/main.js';
+    </script>
+  </body>
+</html>

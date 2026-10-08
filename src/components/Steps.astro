@@ -1,0 +1,12 @@
+---
+interface Props { items: { title: string; text: string }[]; heading?: 'h3' | 'h4' }
+const { items, heading: H = 'h4' } = Astro.props;
+---
+<div class="steps">
+  {items.map((s) => (
+    <div class="step reveal">
+      <H>{s.title}</H>
+      <p>{s.text}</p>
+    </div>
+  ))}
+</div>

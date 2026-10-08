@@ -1,0 +1,18 @@
+---
+import Icon from './Icon.astro';
+import { getDict, type Lang } from '../i18n';
+interface Props { title: string; text: string; button: string; lang: Lang }
+const { title, text, button, lang } = Astro.props;
+---
+<section class="section section--navy cta">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">{getDict(lang).common.ctaEyebrow}</div>
+      <h2 class="h-xl" style="margin-top:16px">{title}</h2>
+      <p class="lead">{text}</p>
+    </div>
+    <div class="reveal">
+      <a href="contact.html" class="btn btn-light btn-lg"><span>{button}</span><Icon name="arrow" /></a>
+    </div>
+  </div>
+</section>

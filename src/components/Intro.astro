@@ -1,0 +1,274 @@
+---
+// Вступна заставка головної сторінки: «МИ» → маніфест → слова-ключі перелітають у пункти меню.
+// Показується один раз за сесію вкладки (sessionStorage), рішення приймає inline-скрипт у <head> (BaseLayout).
+// Текст маніфесту лежить у <template>, тому не потрапляє в індексований вміст сторінки.
+import introLine from '../assets/img/intro-line.webp';
+import { getDict, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getDict(lang);
+const nav = t.common.nav;
+const TEXT = t.intro.text;
+// Слова-ключі: назва пункту меню (може бути з кількох слів) → його href. Порядок збігається з nav.
+const KEYS = nav.map((n) => ({ words: n.label.toUpperCase().split(' '), href: n.href }));
+
+const raw = TEXT.split(' ');
+const tokens: { t: string; nav?: string; mi?: boolean }[] = [];
+for (let i = 0; i < raw.length; i++) {
+  const key = KEYS.find((k) => k.words.every((w, j) => raw[i + j] === w));
+  if (key) {
+    tokens.push({ t: key.words.join('\u00a0'), nav: key.href });
+    i += key.words.length - 1;
+  } else {
+    tokens.push({ t: raw[i], mi: i === 0 });
+  }
+}
+---
+<div class="intro" id="intro">
+  <div class="intro-bg"></div>
+  <div class="intro-stage" aria-hidden="true"></div>
+  <button class="intro-skip" type="button">{t.intro.skip}</button>
+</div>
+<template id="introTpl">
+  <div class="intro-mi" data-src={introLine.src} style={`background-image:url(${introLine.src})`}>{t.intro.mi}</div>
+  <p class="intro-text">{tokens.map((k) => (
+    <Fragment><span class:list={['w', k.nav && 'w-key', k.mi && 'w-mi']} data-nav={k.nav}>{k.t}</span>{' '}</Fragment>
+  ))}</p>
+</template>
+
+<style is:global>
+  .intro { display: none; }
+  html.nc-intro { overflow: hidden; scrollbar-gutter: stable; }
+  html.nc-intro .intro { display: block; position: fixed; inset: 0; z-index: 1000; cursor: default; }
+
+  /* Шапка під час заставки: місце в розкладці зберігається, елементи невидимі */
+  html.nc-intro .navbar .logo,
+  html.nc-intro .navbar .nav-cta,
+  html.nc-intro .navbar .lang-switch--mobile,
+  html.nc-intro .navbar .hamburger,
+  html.nc-intro .navbar .nav-link { opacity: 0; }
+  html.nc-intro .navbar .nav-link[aria-current="page"] { background: transparent; }
+
+  .intro-bg { position: absolute; inset: 0; background: var(--ice); }
+  .intro-bg::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(16, 46, 80, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(16, 46, 80, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 15%, transparent 75%);
+    mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 15%, transparent 75%);
+  }
+  .intro-stage { position: absolute; inset: 0; display: grid; place-items: center; padding: clamp(24px, 6vh, 72px) var(--gutter); }
+
+  .intro-mi {
+    position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+    font-size: min(34vw, 52vh); font-weight: 800; line-height: 1; letter-spacing: -0.045em;
+    color: var(--navy); white-space: nowrap; opacity: 0;
+  }
+  /* Літери, заповнені фото виробничої лінії (холодна синя тонування — у самому файлі) */
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .intro-mi {
+      color: transparent; background-color: var(--navy); background-size: cover; background-position: 50% 45%;
+      -webkit-background-clip: text; background-clip: text;
+    }
+  }
+  .intro-text {
+    width: min(100%, 760px);
+    font-weight: 450; line-height: 1.16; letter-spacing: -0.035em;
+    color: var(--navy); text-align: left; hyphens: none; overflow-wrap: normal;
+  }
+  .intro-text .w { display: inline-block; opacity: 0; }
+  .intro-text .w-key { color: var(--blue); }
+  .intro-text .w-mi { letter-spacing: -0.055em; }
+
+  .intro-fly { position: fixed; margin: 0; line-height: normal; white-space: nowrap; transform-origin: 0 0; pointer-events: none; will-change: transform; }
+  .intro-fly > span { display: block; }
+  .intro-fly > .lo { position: absolute; left: 0; top: 0; opacity: 0; }
+
+  .intro-skip {
+    position: absolute; left: 12px; top: 12px; z-index: 2; border: 0; cursor: pointer;
+    background: var(--navy); color: #fff; padding: 10px 16px; border-radius: var(--radius); font-size: 14px;
+    transform: translateY(-80px);
+  }
+  .intro-skip:focus-visible { transform: none; }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const intro = document.getElementById('intro');
+  const tpl = document.getElementById('introTpl') as HTMLTemplateElement | null;
+  (window as any).__ncIntro = true;
+  clearTimeout((window as any).__ncIntroT);
+
+  if (intro && tpl && root.classList.contains('nc-intro')) run(intro, tpl);
+  else { intro?.remove(); root.classList.remove('nc-intro'); }
+
+  function run(intro: HTMLElement, tpl: HTMLTemplateElement) {
+    const EASE = 'cubic-bezier(.65,0,.35,1)';
+    const EASE_OUT = 'cubic-bezier(.2,.7,.2,1)';
+
+    try { sessionStorage.setItem('nc-intro', '1'); } catch {}
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+
+    const stage = intro.querySelector('.intro-stage') as HTMLElement;
+    const bg = intro.querySelector('.intro-bg') as HTMLElement;
+    stage.append(tpl.content.cloneNode(true));
+    const big = stage.querySelector('.intro-mi') as HTMLElement;
+    const text = stage.querySelector('.intro-text') as HTMLElement;
+    const words = [...text.querySelectorAll<HTMLElement>('.w')];
+    const keys = words.filter((w) => w.dataset.nav);
+    const miSmall = text.querySelector('.w-mi') as HTMLElement;
+
+    const navbar = document.getElementById('navbar')!;
+    const hamburger = navbar.querySelector('.hamburger') as HTMLElement | null;
+    const chrome = ['.logo', '.nav-cta', '.lang-switch--mobile', '.hamburger'].map((s) => navbar.querySelector<HTMLElement>(s)).filter(Boolean) as HTMLElement[];
+    const links = [...navbar.querySelectorAll<HTMLAnchorElement>('.nav-link')];
+
+    const anims: Animation[] = [];
+    const A = (el: Element, kf: Keyframe[], opt: KeyframeAnimationOptions) => {
+      const a = el.animate(kf, { fill: 'both', ...opt });
+      anims.push(a);
+      return a;
+    };
+    let done = false;
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const px = (el: Element, prop: string) => parseFloat(getComputedStyle(el).getPropertyValue(prop)) || 0;
+    const textRect = (el: Element) => {
+      const r = document.createRange();
+      r.selectNodeContents(el);
+      return r.getClientRects()[0] || el.getBoundingClientRect();
+    };
+
+    // ---- Пропуск: клік, Esc/Enter/пробіл, кнопка для клавіатури, зміна ширини вікна ----
+    const onKey = (e: KeyboardEvent) => { if (['Escape', 'Enter', ' '].includes(e.key)) { e.preventDefault(); finish(true); } };
+    const startW = window.innerWidth;
+    const onResize = () => { if (Math.abs(window.innerWidth - startW) > 40) finish(true); };
+    intro.addEventListener('click', () => finish(true));
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+
+    function finish(skipped: boolean) {
+      if (done) return;
+      done = true;
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+      links.forEach((l) => { l.style.transition = 'background-color .5s ease, color .15s ease'; });
+      root.classList.remove('nc-intro');
+      // Елементи шапки вже мають кінцеву непрозорість через CSS — анімації можна знімати
+      anims.forEach((a) => a.cancel());
+      links.forEach((l) => { l.style.opacity = ''; });
+      setTimeout(() => links.forEach((l) => { l.style.transition = ''; }), 600);
+      if (skipped) {
+        intro.style.pointerEvents = 'none';
+        intro.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, easing: 'ease', fill: 'forwards' })
+          .finished.then(() => intro.remove(), () => intro.remove());
+      } else {
+        intro.remove();
+      }
+    }
+
+    // ---- Розмір шрифту маніфесту: найбільший, що вміщується у вікно ----
+    function fit() {
+      const cs = getComputedStyle(stage);
+      const maxH = (stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)) * 0.78;
+      let lo = 11, hi = Math.min(23, window.innerWidth / 18);
+      for (let k = 0; k < 14; k++) {
+        const mid = (lo + hi) / 2;
+        text.style.fontSize = mid + 'px';
+        if (text.getBoundingClientRect().height <= maxH) lo = mid; else hi = mid;
+      }
+      text.style.fontSize = Math.floor(lo * 4) / 4 + 'px';
+    }
+
+    (async () => {
+      const photo = new Image();
+      photo.src = big.dataset.src || '';
+      await Promise.race([Promise.all([document.fonts?.ready, photo.decode().catch(() => {})]), wait(1800)]);
+      if (done) return;
+      fit();
+
+      // ---- Етап 1: «МИ» ----
+      A(big, [{ opacity: 0, transform: 'scale(.94)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 1000, easing: EASE_OUT });
+      await wait(1400);
+      if (done) return;
+
+      // ---- Етап 2: «МИ» стає першим словом тексту, решта слів проявляється ----
+      const rb = textRect(big), rs = textRect(miSmall), box = big.getBoundingClientRect();
+      const s = px(miSmall, 'font-size') / px(big, 'font-size');
+      big.style.transformOrigin = `${rb.left - box.left}px ${rb.top - box.top}px`;
+      A(big, [{ transform: 'none' }, { transform: `translate(${rs.left - rb.left}px, ${rs.top - rb.top}px) scale(${s})` }], { duration: 1200, easing: EASE });
+      await wait(1000);
+      if (done) return;
+      A(miSmall, [{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease' });
+      A(big, [{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 80, easing: 'ease' });
+
+      const rest = words.filter((w) => w !== miSmall);
+      const step = Math.min(12, 900 / rest.length);
+      rest.forEach((w, i) => A(w, [{ opacity: 0, transform: 'translateY(.35em)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: i * step, easing: EASE_OUT }));
+      await wait(rest.length * step + 500 + 2500);
+      if (done) return;
+
+      // Залишаються тільки п'ять слів меню
+      words.filter((w) => !w.dataset.nav).forEach((w, i) => A(w, [{ opacity: 1 }, { opacity: 0 }], { duration: 500, delay: (i % 12) * 12, easing: 'ease' }));
+      await wait(700);
+      if (done) return;
+
+      // ---- Етап 3: слова перелітають у шапку ----
+      const desktop = !hamburger || getComputedStyle(hamburger).display === 'none';
+      const FLY = 1000, GAP = 120;
+      A(bg, [{ opacity: 1 }, { opacity: 0 }], { duration: desktop ? 1300 : 1000, delay: desktop ? 400 : 4 * GAP + FLY * 0.55, easing: 'ease' });
+      chrome.forEach((el) => A(el, [{ opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'none' }], { duration: 800, delay: desktop ? 450 : 300 + FLY, easing: EASE_OUT }));
+
+      keys.forEach((key, i) => {
+        const link = links.find((l) => l.getAttribute('href') === key.dataset.nav);
+        const src = textRect(key);
+        const fs = px(key, 'font-size');
+        const fly = document.createElement('div');
+        fly.className = 'intro-fly';
+        fly.style.cssText = `left:${src.left}px;top:${src.top}px;font-size:${fs}px;font-weight:450;letter-spacing:${getComputedStyle(key).letterSpacing};color:#1676C5`;
+        const up = document.createElement('span');
+        up.className = 'up';
+        up.textContent = key.textContent;
+        fly.append(up);
+        intro.append(fly);
+        key.style.visibility = 'hidden';
+
+        const delay = i * GAP;
+        if (desktop && link) {
+          const tr = textRect(link);
+          const lcs = getComputedStyle(link);
+          const sc = parseFloat(lcs.fontSize) / fs;
+          const lo = document.createElement('span');
+          lo.className = 'lo';
+          lo.textContent = link.textContent;
+          lo.style.fontWeight = lcs.fontWeight;
+          lo.style.letterSpacing = (parseFloat(lcs.letterSpacing) || 0) / sc + 'px';
+          fly.append(lo);
+          A(fly, [
+            { transform: 'none', color: '#1676C5' },
+            { transform: `translate(${tr.left - src.left}px, ${tr.top - src.top}px) scale(${sc})`, color: lcs.color },
+          ], { duration: FLY, delay, easing: EASE });
+          A(up, [{ opacity: 1, offset: 0 }, { opacity: 1, offset: 0.4 }, { opacity: 0, offset: 0.8 }, { opacity: 0 }], { duration: FLY, delay });
+          A(lo, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.4 }, { opacity: 1, offset: 0.8 }, { opacity: 1 }], { duration: FLY, delay });
+          setTimeout(() => { if (done) return; link.style.opacity = '1'; requestAnimationFrame(() => fly.remove()); }, delay + FLY);
+        } else if (hamburger) {
+          // Мобільний: меню сховане за кнопкою — слова «складаються» в неї
+          const h = hamburger.getBoundingClientRect();
+          const sc = 0.12;
+          const dx = h.left + h.width / 2 - src.left - (src.width * sc) / 2;
+          const dy = h.top + h.height / 2 - src.top - (src.height * sc) / 2;
+          A(fly, [
+            { transform: 'none', opacity: 1, color: '#1676C5' },
+            { opacity: 1, offset: 0.7 },
+            { transform: `translate(${dx}px, ${dy}px) scale(${sc})`, opacity: 0, color: '#102E50' },
+          ], { duration: FLY, delay, easing: EASE });
+        }
+      });
+
+      await wait((keys.length - 1) * GAP + FLY + (desktop ? 120 : 900));
+      finish(false);
+    })();
+  }
+</script>

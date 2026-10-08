@@ -1,0 +1,11 @@
+---
+interface Props { eyebrow: string; title: string; lead?: string; wide?: boolean }
+const { eyebrow, title, lead, wide = false } = Astro.props;
+---
+<section class:list={['page-header', { 'page-header--wide': wide }]}>
+  <div class="container">
+    <div class="eyebrow">{eyebrow}</div>
+    <h1 class="h-xl">{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+</section>

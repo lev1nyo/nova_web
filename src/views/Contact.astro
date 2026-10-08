@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import { contacts, organizationLd } from '../data/site';
+import { getDict, pageUrl, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getDict(lang);
+const c = t.contact;
+
+const ld = {
+  '@type': 'ContactPage',
+  name: c.meta.title,
+  url: pageUrl(lang, 'contact.html'),
+  mainEntity: organizationLd(t, pageUrl(lang, 'index.html')),
+};
+---
+<BaseLayout lang={lang} page="contact.html" title={c.meta.title} description={c.meta.description} jsonLd={ld}>
+  <PageHeader eyebrow={c.header.eyebrow} title={c.header.title} lead={c.header.lead} />
+
+  <section class="section section--tight" style="padding-top:0">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info reveal">
+          <div>
+            <h2 class="h-lg" style="margin-bottom:16px">{c.infoTitle}</h2>
+            <p class="muted" style="font-size:16.5px;line-height:1.65">{c.infoText}</p>
+          </div>
+          <div class="contact-details">
+            <div class="contact-item"><div class="icon-tile"><Icon name="mail" /></div><div><h4>{c.labels.email}</h4><a href={`mailto:${contacts.email}`}>{contacts.email}</a></div></div>
+            <div class="contact-item"><div class="icon-tile"><Icon name="phone" /></div><div><h4>{c.labels.phone}</h4><a href={`tel:${contacts.phoneTel}`}>{contacts.phone}</a></div></div>
+            <div class="contact-item"><div class="icon-tile"><Icon name="pin" /></div><div><h4>{c.labels.address}</h4><p>{t.common.address}</p><p>{t.common.hours}</p></div></div>
+          </div>
+          <div class="social-section">
+            <h4>{c.social}</h4>
+            <div class="social-links"><span class="social-link">Facebook</span><span class="social-link">Instagram</span><span class="social-link">LinkedIn</span></div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper reveal">
+          <form class="contact-form" id="contactForm" novalidate data-err-required={c.form.errRequired} data-err-email={c.form.errEmail} data-success={c.form.success}>
+            <h2>{c.form.title}</h2>
+            <div class="form-row">
+              <div class="form-group"><label for="name">{c.form.name}</label><input type="text" id="name" name="name" autocomplete="name" required /></div>
+              <div class="form-group"><label for="email">{c.form.email}</label><input type="email" id="email" name="email" autocomplete="email" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="phone">{c.form.phone}</label><input type="tel" id="phone" name="phone" autocomplete="tel" /></div>
+              <div class="form-group">
+                <label for="subject">{c.form.subject}</label>
+                <select id="subject" name="subject" required>
+                  <option value="">{c.form.subjectPlaceholder}</option>
+                  {c.form.subjects.map(([value, label]) => <option value={value}>{label}</option>)}
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label for="message">{c.form.message}</label><textarea id="message" name="message" rows="5" required></textarea></div>
+            <button type="submit" class="btn btn-primary btn-lg"><span>{c.form.submit}</span><Icon name="arrow" /></button>
+            <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

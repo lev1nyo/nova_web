@@ -1,0 +1,367 @@
+import type { IconName } from '../data/site';
+import type { Dict } from './uk';
+
+const icon = (n: IconName) => n;
+
+/** English version. Must keep exactly the same structure as uk.ts (enforced by the Dict type). */
+export const en: Dict = {
+  htmlLang: 'en',
+  ogLocale: 'en_US',
+
+  common: {
+    skip: 'Skip to content',
+    mainNav: 'Main navigation',
+    logoAria: 'Novaclean — home',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    consult: 'Get a consultation',
+    langGroup: 'Site language',
+    langName: { uk: 'Українська', en: 'English' },
+    nav: [
+      { href: 'index.html', label: 'Home' },
+      { href: 'about.html', label: 'About Us' },
+      { href: 'products.html', label: 'Products' },
+      { href: 'services.html', label: 'Services' },
+      { href: 'contact.html', label: 'Contacts' },
+    ],
+    more: 'Learn more',
+    ctaEyebrow: 'Get in touch',
+    moleculeAria: 'Schematic molecular structure',
+    company: 'Novaclean Ukraine LLC',
+    address: '61001, Ukraine, Kharkiv Region, Kharkiv, 63 Heorhiia Tarasenka St., office 313',
+    hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+    footer: {
+      tagline: 'Next-generation professional cleaning and care products',
+      nav: 'Navigation',
+      contacts: 'Contacts',
+      email: 'Email:',
+      phone: 'Phone:',
+      address: 'Address:',
+      social: 'Social media',
+      rights: '© 2025 Novaclean. All rights reserved.',
+    },
+  },
+
+  org: {
+    name: 'Novaclean Ukraine',
+    region: 'Kharkiv Region',
+    locality: 'Kharkiv',
+    street: '63 Heorhiia Tarasenka St., office 313',
+  },
+
+  intro: {
+    skip: 'Skip intro',
+    mi: 'WE',
+    text: `WE ARE A UKRAINIAN MANUFACTURER OF PROFESSIONAL CHEMICALS, WHERE TECHNOLOGY MEETS RESPONSIBILITY. THIS IS THE HOME OF FLAWLESS PRODUCTION HYGIENE THAT PROTECTS YOUR PRODUCT AND YOUR REPUTATION. THE CLEAN LINES OF MEAT PROCESSING PLANTS, POULTRY FARMS AND FOOD BUSINESSES SAY MORE ABOUT US THAN ANY WORDS. OUR PRODUCTS ARE CLEANING AND DISINFECTING AGENTS AND FEED ADDITIVES, MADE UNDER CERTIFIED ISO 9001 AND ISO 22000 SYSTEMS. THE SERVICES OF OUR TECHNOLOGISTS HELP YOU CHOOSE CLEANING AND DISINFECTION REGIMES, REDUCE WATER AND ENERGY COSTS AND PREPARE FOR AUDITS. OUR CONTACTS ARE A DIRECT LINE TO A TECHNOLOGIST WHO KNOWS YOUR PRODUCTION.`,
+  },
+
+  home: {
+    meta: {
+      title: 'Novaclean Ukraine - Systemic Industrial Sanitation and Biosafety Solutions',
+      description: 'Systemic industrial sanitation and biosafety solutions - professional chemical reagents compliant with HACCP and ISO',
+    },
+    hero: {
+      eyebrow: 'Industrial chemistry · Kharkiv, Ukraine',
+      title: 'Systemic industrial sanitation solutions',
+      accent: 'and biosafety',
+      lead: 'Development and production of professional chemical reagents integrated into the production cycles of enterprises. Ensuring hygiene standards in line with HACCP and ISO principles.',
+      cta: 'Get a consultation',
+      products: 'Products',
+      photoAlt: 'A food production line staffed by workers in sanitary clothing',
+      chipLabel: 'Standard',
+      chipValue: 'ISO 9001:2015',
+    },
+    specs: [
+      { n: 'ISO 9001:2015', n2: 'ISO 22000', l: 'International quality management standard' },
+      { n: 'Nationwide coverage', n2: '', l: 'Prompt logistics and service across Ukraine' },
+      { n: 'R&D center', n2: '', l: 'In-house development and testing laboratory' },
+      { n: 'Regulatory compliance', n2: '', l: 'Declaration and state registration with the Ministry of Health of Ukraine' },
+    ],
+    competencies: {
+      eyebrow: 'Competencies',
+      title: 'Key competencies',
+      photoAlt: 'A lab technician examining a flask of liquid',
+      caption: 'Our own research center develops formulations for the specific needs of each client.',
+      items: [
+        { icon: icon('check'), navy: false, title: 'Laboratory control (QC)', text: 'A multi-level quality validation system (incoming raw materials, production process, finished product). Stable physicochemical parameters (pH, density, viscosity) guaranteed in every batch.' },
+        { icon: icon('zap'), navy: false, title: 'Cost-in-use optimization', text: 'Highly concentrated formulas deliver the target efficacy at low dosages, reducing the cost of the working solution and shortening exposure time.' },
+        { icon: icon('flask'), navy: false, title: 'R&D and customization', text: 'Our own research center develops formulations for the specific tasks of the client and adapts products to the water parameters and types of contamination on site.' },
+        { icon: icon('shield'), navy: true, title: 'Certification and compliance', text: 'Production in accordance with ISO 9001. Products come with a full set of permit documentation: safety data sheets (SDS) and declarations of conformity with Technical Regulations.' },
+      ],
+    },
+    products: {
+      eyebrow: 'Products',
+      title: 'Professional chemical solutions',
+      lead: 'Specialized product lines that ensure the microbiological cleanliness of production lines, infrastructure and products.',
+      all: 'View all product lines',
+      cards: [
+        { badge: 'IND', title: 'NovaClean IND (Industry)', href: 'products.html#ind', alt: 'An automated production line with stainless steel guides',
+          text: 'Reagents for CIP cleaning, foam treatment and disinfection in the food industry (dairy, meat, beer and soft drinks). Effective removal of biofilms and mineral deposits.' },
+        { badge: 'HRC', title: 'NovaClean HRC (HoReCa)', href: 'products.html#hrc', alt: 'A professional kitchen with stainless steel equipment',
+          text: 'Professional chemistry for the hospitality industry. Comprehensive solutions for dishwashers, kitchen equipment and guest rooms that guarantee sanitary safety.' },
+        { badge: 'FEED', title: 'Agriculture and feed production', href: 'products.html#feed', alt: 'Hens near a feeder with pelleted feed',
+          text: 'Functional additives (antioxidants, mold inhibitors) and disinfectants that ensure the biosafety of feed and raw materials of animal origin.' },
+      ],
+    },
+    sectors: {
+      eyebrow: 'Industries',
+      title: 'From the factory floor to the kitchen and feed production',
+      photoAlt: 'A worker in gloves on a food container packing line',
+      items: [
+        { t: 'Food industry', d: 'Dairy, meat, beer and soft drink sectors: CIP cleaning, foam treatment, disinfection' },
+        { t: 'HoReCa', d: 'Hotels, restaurants, cafés, catering kitchens' },
+        { t: 'Agriculture and feed production', d: 'Compound feed industry, feed storage, meat-and-bone meal production' },
+        { t: 'Industrial and warehouse facilities', d: 'Production sites, warehouse complexes, administrative areas' },
+      ],
+    },
+    partners: {
+      eyebrow: 'Partners',
+      title: 'Strategic partners',
+      lead: 'We provide technological support and a stable supply for the leaders of national industry.',
+      names: ['MHP', 'Hlobyne Meat Processing Plant', 'Puzata Khata', 'Kremenchuk Meat', "Domino's Pizza", 'Tulchynmyaso LLC', 'MK Rial LLC', 'MK Myasnoy LLC'],
+    },
+    cta: {
+      title: 'Need a technological audit?',
+      text: 'Our process engineers are ready to analyze the sanitary condition of your facility and develop an individual cleaning map.',
+      button: 'Contact a technologist',
+    },
+  },
+
+  about: {
+    meta: { title: 'About Us - Novaclean', description: 'Learn more about Novaclean - our history, mission and values' },
+    header: { eyebrow: 'About Us', title: 'About Novaclean Ukraine', lead: 'Your strategic partner in industrial sanitation and hygiene.' },
+    mission: {
+      eyebrow: 'Mission and values',
+      title: 'Our mission',
+      text: 'Novaclean Ukraine LLC introduces biosafety standards at Ukrainian enterprises. We develop professional cleaning and disinfection solutions that guarantee impeccable sanitary conditions in production processes, cost efficiency and staff safety.',
+    },
+    values: [
+      { icon: icon('shield'), title: 'Uncompromising quality', text: 'We do not cut corners on raw materials. Every batch undergoes laboratory control of its physicochemical parameters, guaranteeing a consistent cleaning result.' },
+      { icon: icon('truck'), title: 'Reliable supply', text: 'Our own production and well-established logistics allow us to fulfill orders of any volume “just in time”, ensuring uninterrupted operations for our clients.' },
+      { icon: icon('flask'), title: 'Technological focus', text: 'We continuously improve our formulations, using modern surfactants and biodegradable components to increase cleaning power and reduce the environmental impact.' },
+      { icon: icon('users'), title: 'Partnership and service', text: 'We do not just sell a product — we provide technological support: from selecting concentrations to setting up dosing equipment and training staff.' },
+    ],
+    team: {
+      eyebrow: 'Team',
+      title: 'Expert team',
+      lead: 'Professionals who create cleanliness at the molecular level',
+      items: [
+        { title: 'Experienced technologists', alt: 'A specialist working with a microscope in a laboratory', text: 'Our specialists have deep expertise in chemistry and microbiology, which allows us to solve the most complex contamination problems in production.' },
+        { title: 'R&D department', alt: 'A lab technician with a pipette next to samples in a laboratory', text: 'Our research department works continuously on new formulas, adapting the best European practices to Ukrainian realities.' },
+        { title: 'Customer service', alt: 'A manager and a client shaking hands during a meeting', text: 'Personal managers and auditors are always in touch to respond promptly to requests and provide 24/7 support.' },
+      ],
+    },
+    rd: {
+      eyebrow: 'R&D',
+      title: 'Research and Development (R&D) department',
+      lead: 'A scientific approach to creating formulations',
+      approachTitle: 'Our approach',
+      approach: 'The R&D center is the heart of Novaclean Ukraine. Here a team of chemists and engineers develops innovative products that combine high antimicrobial activity with careful treatment of surfaces. We create products that work faster and more economically than their counterparts.',
+      cooperationTitle: 'Cooperation',
+      cooperation: 'To confirm the efficacy and safety of our products, we cooperate with leading accredited laboratories and specialized institutes. This allows us to validate control methods and guarantee compliance with the strictest sanitary standards.',
+      partnersTitle: 'Our partners',
+      partners: [
+        { icon: icon('flask'), title: 'Independent laboratory testing', text: 'Disinfection efficacy is confirmed by laboratories accredited under DSTU EN ISO/IEC 17025, using the EN 1276, EN 1650 and EN 13697 methods. Toxicological safety and compliance with technical specifications are also verified independently.' },
+        { icon: icon('globe'), title: 'European surfactant technologies', text: 'We develop formulations based on European surfactants. The biodegradability of the surfactants complies with Regulation (EC) No. 648/2004 on detergents.' },
+      ],
+      advantagesTitle: 'Advantages of our scientific approach',
+      advantages: [
+        'Monitoring of global trends in industrial hygiene.',
+        'Development of customized products for the specific needs of the client.',
+        'Multi-level testing of formulas in real production conditions.',
+        'Adapting compositions to water quality and the specifics of contamination in Ukraine.',
+      ],
+    },
+    quality: {
+      eyebrow: 'Quality',
+      title: 'Quality and standardization',
+      lead: 'Responsibility for every liter of product',
+      systemTitle: 'Certified quality management system',
+      system: 'The quality management system of Novaclean Ukraine LLC is certified to ISO 9001. Incoming raw material control, production process control and release control of every batch are carried out under documented procedures. This ensures stable and reproducible product characteristics.',
+      docsTitle: 'Complete set of accompanying documentation',
+      docsHtml: 'Every product is supplied with documents confirming its safety and quality:<br />a declaration of conformity with the Technical Regulation on detergents or state registration with the Ministry of Health of Ukraine and entry in the State Register of Disinfectants; a quality certificate for every batch; a safety data sheet (SDS) for every product.',
+      certs: [
+        { tag: 'ISO', title: 'ISO 9001', text: 'Confirms a systematic approach to quality management and a focus on customer needs.' },
+        { tag: 'REG', title: 'Technical regulations', text: 'Full compliance with Ukrainian legislation and the requirements for product labeling and composition.' },
+        { tag: 'ECO', title: 'Environmental safety', text: 'Use of biodegradable components that minimize the impact on the environment and wastewater treatment facilities.' },
+        { tag: 'SAFE', title: 'Product safety', text: 'Rigorous toxicological testing guarantees that the products are safe to use when the instructions are followed.' },
+      ],
+      processTitle: 'Quality control process',
+      process: [
+        { title: 'Incoming raw material control', text: 'Thorough inspection of all incoming raw materials for compliance with standards' },
+        { title: 'Production control', text: 'Continuous monitoring of the production process at every stage' },
+        { title: 'Finished product testing', text: 'Comprehensive testing of every product batch before release' },
+        { title: 'Certification and documentation', text: 'Complete documentation and certification in line with legal requirements' },
+      ],
+    },
+    history: {
+      eyebrow: 'History',
+      title: 'Our story',
+      paragraphs: [
+        'Novaclean Ukraine LLC was founded with an ambitious goal — to create a national product that would be no less effective than global brands, yet more affordable for Ukrainian businesses. We set out to develop products that combine powerful cleaning action with high standards of environmental safety.',
+        'Over the years, the company has grown from a small production site into one of the leaders of the professional hygiene market. Thanks to the synergy of science and production, we have created a broad range of specialized products for the food industry, agriculture and HoReCa.',
+        'Today Novaclean Ukraine is a modern production complex, an in-house R&D center and a team of qualified experts. We understand that cleanliness at an enterprise is the foundation of final product quality. That is why every one of our products is created to give you confidence in the sanitary safety of your business.',
+      ],
+    },
+    cta: { title: 'Want to learn more?', text: 'Contact us and we will be happy to answer all your questions', button: 'Contact us' },
+  },
+
+  products: {
+    meta: { title: 'Products - Novaclean', description: 'A portfolio of professional solutions: cleaning and disinfecting products for industry, agriculture and HoReCa' },
+    header: {
+      eyebrow: 'Products · Novaclean Ukraine LLC',
+      title: 'Portfolio of professional solutions',
+      lead: 'Comprehensive cleaning and disinfection systems for industry, agriculture and the hospitality sector. Developed and manufactured in accordance with international quality standards.',
+    },
+    subnavAria: 'Product lines',
+    lineLabel: 'Line',
+    rangeLabel: 'The range includes:',
+    applicationsLabel: 'Applications:',
+    subnav: { ind: 'NovaClean IND', hrc: 'NovaClean HRC', feed: 'Feed industry' },
+    ind: {
+      title: 'NovaClean IND',
+      alt: 'A bottling conveyor line: bottles of liquid in production',
+      lead: 'A series of highly concentrated products for food and processing industry enterprises',
+      intro: 'Designed to remove persistent organic and inorganic contamination in CIP systems, as well as for external treatment of process equipment.',
+      applications: ['Industry', 'Production', 'Warehouse complexes', 'Administrative areas'],
+      items: [
+        { title: 'Foaming and low-foam concentrates', text: 'Low-foam products for circulation cleaning (CIP) and foaming products for treating open surfaces with foam generators.' },
+        { title: 'Alkaline products', text: 'Hydroxide-based products for saponifying fats and breaking down protein soils. Chelating agents bind hardness salts and prevent scale formation.' },
+        { title: 'Acid products', text: 'Products based on phosphoric and organic acids for removing mineral deposits: scale, milkstone and beerstone.' },
+        { title: 'Neutral products', text: 'pH-neutral surfactant-based products for manual cleaning and for surfaces sensitive to alkalis and acids: aluminum, non-ferrous metals, painted coatings.' },
+        { title: 'Broad-spectrum disinfectants', text: 'Biocidal products based on quaternary ammonium compounds, peracetic acid or active chlorine, effective against bacteria, fungi and viruses.' },
+        { title: 'Technical cleaning agents', text: 'Specialized products for degreasing parts, washing containers and production premises. Contain no biocidal components.' },
+      ],
+    },
+    hrc: {
+      title: 'NovaClean HRC',
+      alt: 'A professional kitchen with a combi oven and extractor hood',
+      lead: 'A professional line for maintaining sanitary and hygiene standards in HoReCa establishments',
+      intro: 'The products are designed to integrate into a HACCP system, guarantee microbiological cleanliness and preserve the aesthetic appearance of surfaces.',
+      applications: ['Hotels', 'Restaurants', 'Cafés', 'Catering kitchens'],
+      items: [
+        { title: 'Guest room sanitation (Housekeeping)', text: 'Products for comprehensive cleaning of living and public areas, and care of textiles and hard floor coverings.' },
+        { title: 'Professional kitchen hygiene', text: 'Highly active anti-grease solvents for extraction systems, grills and combi ovens.' },
+        { title: 'Professional dishwashing process', text: 'Liquid concentrates for automatic dishwashers (wash and rinse) and products for manual soaking.' },
+        { title: 'Contact surface disinfection', text: 'Rapid-action disinfectants for treating tables, bar counters and equipment with no rinsing required.' },
+        { title: 'Sanitary area cleaning', text: 'Acid products for removing limescale, urinary stone and rust, with a disinfecting effect.' },
+        { title: 'Specialized solutions', text: 'Stain removers, polishes for stainless steel and glass, and odor neutralizers.' },
+      ],
+    },
+    feed: {
+      title: 'Solutions for the compound feed industry',
+      alt: 'An industrial poultry house with broilers and feeding lines',
+      lead: 'Functional feed additives for the biosafety of feed and raw materials of animal origin',
+      intro: 'Chemical control of pathogens and stabilization of the physicochemical parameters of products.',
+      applications: ['Compound feed industry', 'Meat-and-bone meal production', 'Feed storage'],
+      items: [
+        { title: 'Antioxidant for feed and raw materials', paragraphs: [
+          { label: 'Application', text: 'Used in the production cycles of complete compound feeds and protein-vitamin supplements, as well as in the manufacture and storage of meat-and-bone meal.' },
+          { label: 'Functional purpose', text: 'Provides chemical stabilization of lipids and carotenoids by blocking the chain reactions of autoxidation (rancidity). This preserves the activity of fat-soluble vitamins, prevents the accumulation of toxic breakdown products and extends the shelf life of products beyond 6 months without loss of nutritional value.' },
+          { label: 'Composition', text: 'A synergistic blend of long-acting synthetic antioxidants with a high degree of thermal stability.' } ] },
+        { title: 'Preservative-acidifier', paragraphs: [
+          { label: 'Application', text: 'Used for the sanitary treatment of feed raw materials and finished products during production, long-term storage and transportation, especially where there is an increased risk of biological contamination.' },
+          { label: 'Functional purpose', text: 'Ensures microbiological safety by suppressing the growth of pathogenic microflora (in particular Salmonella spp., E. coli), viral agents, yeasts and molds. Effectively lowers the buffering capacity of the feed, creating an unfavorable environment for pathogens, and prevents recontamination.' },
+          { label: 'Composition', text: 'Based on a balanced complex of organic acids and their salts with pronounced fungicidal, virucidal and bactericidal activity.' } ] },
+      ],
+    },
+    quality: {
+      eyebrow: 'Quality',
+      title: 'Quality and safety management system',
+      photoAlt: 'A gloved hand holding a chemical beaker with clear liquid in a laboratory',
+      paragraphsHtml: [
+        'Novaclean Ukraine LLC operates a certified quality management system in accordance with <strong>ISO 9001</strong>. The production cycle includes multi-level control: incoming raw material analysis, monitoring of process parameters and laboratory testing of every finished batch.',
+        'Feed additives are produced under a certified safety management system in accordance with <strong>ISO 22000</strong>, built on the principles of <strong>HACCP</strong>.',
+        'Cleaning products comply with the requirements of the <strong>Technical Regulation on Detergents (Resolution of the Cabinet of Ministers of Ukraine No. 717)</strong>.',
+      ],
+    },
+    benefits: {
+      eyebrow: 'Characteristics',
+      title: 'Technical and operational characteristics',
+      items: [
+        { title: 'Highly concentrated formulas', text: 'Concentrated compositions deliver the required level of cleanliness at low working concentrations: typically 0.5–2.0% depending on the product and the degree of contamination.' },
+        { title: 'Safe to use', text: 'The products rinse off completely with water and leave no residue on surfaces that contact food. The compositions are developed with staff safety requirements in mind, provided the instructions for use are followed.' },
+        { title: 'Cost-in-use efficiency', text: 'A lower cost of the cleaning process: efficacy at reduced temperatures and concentrations cuts energy and water consumption, and a shorter contact time reduces equipment downtime.' },
+        { title: 'Biodegradability', text: 'The surfactants in the cleaning products meet the criteria for complete aerobic biodegradation under Regulation (EC) No. 648/2004 (at least 60% within 28 days under OECD 301 methods). This reduces the load on wastewater treatment facilities.' },
+      ],
+    },
+    cta: {
+      title: 'Get professional advice',
+      text: 'Contact us to select an individual cleaning and disinfection program tailored to the specifics of your enterprise.',
+      button: 'Contact us',
+    },
+  },
+
+  services: {
+    meta: { title: 'Services - Novaclean', description: 'Technological support and engineering of sanitation processes - implementation of integrated hygiene systems' },
+    header: {
+      eyebrow: 'Services',
+      title: 'Technological support and engineering of sanitation processes',
+      lead: 'Implementation of integrated hygiene systems: from an enterprise audit to the automation of cleaning agent dosing.',
+    },
+    model: {
+      eyebrow: 'Cooperation model',
+      title: 'Comprehensive cleanliness management',
+      text: 'Novaclean Ukraine LLC does not simply supply chemical reagents — it ensures the stability of sanitary and hygiene parameters at your enterprise. Our cooperation model is built on the principles of engineering service: we minimize the influence of the human factor, optimize costs (cost-in-use) and guarantee that processes comply with HACCP and ISO standards.',
+      photoAlt: 'A worker in a white coat, cap and mask next to industrial equipment at a production site',
+    },
+    directions: {
+      eyebrow: 'Areas',
+      title: 'Six service areas',
+      items: [
+        { icon: icon('search'), title: 'Technological audit and consulting', text: 'Diagnostics of the current state of sanitation at the facility. Identification of critical control points (CCPs) according to HACCP principles.',
+          items: ['Microbiological risk analysis', 'Development of cleaning and disinfection plans and schemes', 'Optimization of water and energy consumption', 'Selection of products for the type of contamination and surface'] },
+        { icon: icon('flask'), title: 'Development of customized formulations', text: 'Adapting the chemical composition of cleaning products to the specific conditions of your production in our own R&D laboratory.',
+          items: ['Adjusting formulas to the water hardness at the facility', 'Creating highly specialized products for non-standard contamination', 'Laboratory efficacy testing (scale-up)', 'Production of pilot batches to order'] },
+        { icon: icon('users'), title: 'Training and professional development', text: 'Building a culture of professional hygiene among the client’s staff. Theoretical and practical training sessions.',
+          items: ['Briefings on handling chemical reagents (safety)', 'Practicing cleaning procedures (SOP)', 'Methodology for preparing working solutions', 'Staff certification after completing the course'] },
+        { icon: icon('sliders'), title: 'Dosing equipment installation', text: 'Full automation of working solution preparation to eliminate the “human factor” and overdosing.',
+          items: ['Installation and setup of professional dosing pumps (HoReCa, industry)', 'Installation of foam generators and cleaning stations', 'Regular calibration of concentrations and servicing of systems', '24/7 technical support and prompt repairs'] },
+        { icon: icon('clip'), title: 'Cleaning process validation', text: 'Instrumental control of the effectiveness of sanitary measures to confirm the safety of production.',
+          items: ['Monitoring of residual cleaning agent amounts (swabs)', 'Control of the microbiological cleanliness of surfaces', 'Verification of CIP cleaning efficiency and foam adhesion', 'Official reports for quality system auditors'] },
+        { icon: icon('truck'), title: 'Logistics and supply chain', text: 'Ensuring an uninterrupted supply chain for products in compliance with the requirements for transporting chemicals.',
+          items: ['Maintaining a buffer stock of products in warehouses', 'Strict control of expiration dates and storage conditions', 'Prompt “just-in-time” delivery'] },
+      ],
+    },
+    process: {
+      eyebrow: 'Process',
+      title: 'Stages of technology implementation',
+      steps: [
+        { title: 'Facility assessment', text: 'Collecting data and analyzing water quality, equipment type and the specifics of contamination. A technologist visits the enterprise.' },
+        { title: 'Sanitation program development', text: 'Creating individual cleaning maps, selecting equipment and calculating economic efficiency (budgeting).' },
+        { title: 'Installation and commissioning', text: 'Installing dosing stations, setting concentrations, test cleaning runs and staff training.' },
+        { title: 'Monitoring and support', text: 'Regular service visits, equipment calibration and adjustment of the cleaning program as needed.' },
+      ],
+    },
+    cta: {
+      title: 'Ready to optimize your sanitation processes?',
+      text: 'Contact us to develop an individual project: from selecting dosing stations to implementing a cleaning map.',
+      button: 'Contact a technologist',
+    },
+  },
+
+  contact: {
+    meta: { title: 'Contacts - Novaclean', description: 'Get in touch with Novaclean - we are always happy to help' },
+    header: { eyebrow: 'Contacts', title: 'Get in touch', lead: 'We are always happy to answer your questions' },
+    infoTitle: 'Contact information',
+    infoText: 'Contact us in whichever way is most convenient for you. Our team is always ready to help and answer all your questions.',
+    labels: { email: 'Email', phone: 'Phone', address: 'Address' },
+    social: 'Social media',
+    form: {
+      title: 'Send us a message',
+      name: 'Name *',
+      email: 'Email *',
+      phone: 'Phone',
+      subject: 'Subject *',
+      subjectPlaceholder: 'Select a subject',
+      subjects: [
+        ['consultation', 'Consultation'], ['order', 'Order'], ['support', 'Technical support'], ['partnership', 'Partnership'], ['other', 'Other'],
+      ],
+      message: 'Message *',
+      submit: 'Send',
+      errRequired: 'Please fill in all required fields',
+      errEmail: 'Please enter a valid email address',
+      success: 'Thank you for your message! We will get back to you shortly.',
+    },
+  },
+};

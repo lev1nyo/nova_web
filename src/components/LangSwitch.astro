@@ -1,0 +1,14 @@
+---
+import { getDict, switchHref, type Lang } from '../i18n';
+interface Props { lang: Lang; page: string; class?: string }
+const { lang, page, class: className } = Astro.props;
+const t = getDict(lang).common;
+const items: { code: Lang; label: string }[] = [{ code: 'uk', label: 'UA' }, { code: 'en', label: 'EN' }];
+---
+<div class:list={['lang-switch', className]} role="group" aria-label={t.langGroup}>
+  {items.map((it) => it.code === lang ? (
+    <span class="lang-opt is-active" lang={it.code} aria-current="true" title={t.langName[it.code]}>{it.label}</span>
+  ) : (
+    <a class="lang-opt" href={switchHref(lang, it.code, page)} hreflang={it.code} lang={it.code} title={t.langName[it.code]} aria-label={t.langName[it.code]}>{it.label}</a>
+  ))}
+</div>

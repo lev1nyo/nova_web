@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icon from './Icon.astro';
+import Molecule from './Molecule.astro';
+import { getDict, type Lang } from '../i18n';
+interface Props {
+  lang: Lang;
+  badge: string;
+  title: string;
+  text: string;
+  href: string;
+  image?: ImageMetadata;
+  alt?: string;
+  position?: string;
+}
+const { lang, badge, title, text, href, image, alt = '', position } = Astro.props;
+const t = getDict(lang).common;
+---
+<article class="product-card reveal">
+  {image ? (
+    <div class="product-media">
+      <Image src={image} alt={alt} widths={[480, 720, 960]} sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 400px" loading="lazy" style={position ? `object-position:${position}` : undefined} />
+      <span class="badge">{badge}</span>
+    </div>
+  ) : (
+    <div class="product-media product-media--art" role="img" aria-label={t.moleculeAria}>
+      <Molecule /><span class="badge">{badge}</span>
+    </div>
+  )}
+  <div class="product-body">
+    <h3>{title}</h3>
+    <p>{text}</p>
+    <a href={href} class="link-arrow">{t.more} <Icon name="arrow" /></a>
+  </div>
+</article>

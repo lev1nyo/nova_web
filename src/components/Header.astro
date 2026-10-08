@@ -1,0 +1,32 @@
+---
+import Logo from './Logo.astro';
+import LangSwitch from './LangSwitch.astro';
+import { contacts } from '../data/site';
+import { getDict, type Lang } from '../i18n';
+interface Props { current: string; lang: Lang }
+const { current, lang } = Astro.props;
+const t = getDict(lang).common;
+---
+<header class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-wrapper">
+      <Logo lang={lang} />
+      <nav aria-label={t.mainNav}>
+        <ul class="nav-menu" id="navMenu">
+          {t.nav.map((item) => (
+            <li><a href={item.href} class="nav-link" aria-current={item.href === current ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <a class="nav-phone" href={`tel:${contacts.phoneTel}`}>{contacts.phone}</a>
+        <LangSwitch lang={lang} page={current} />
+        <a href="contact.html" class="btn btn-primary btn-sm">{t.consult}</a>
+      </div>
+      <LangSwitch lang={lang} page={current} class="lang-switch--mobile" />
+      <button class="hamburger" id="hamburger" type="button" aria-label={t.openMenu} aria-expanded="false" aria-controls="navMenu" data-label-open={t.openMenu} data-label-close={t.closeMenu}>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

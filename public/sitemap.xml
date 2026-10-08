@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.novacleanua.com/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/about.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/about.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/products.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/products.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/products.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/en/products.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/products.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/products.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/services.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/en/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/services.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/contact.html"/>
+  </url>
+  <url>
+    <loc>https://www.novacleanua.com/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.novacleanua.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.novacleanua.com/en/contact.html"/>
+  </url>
+</urlset>

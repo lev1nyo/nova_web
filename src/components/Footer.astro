@@ -1,0 +1,43 @@
+---
+import Logo from './Logo.astro';
+import { contacts } from '../data/site';
+import { getDict, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = getDict(lang).common;
+const f = t.footer;
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <Logo lang={lang} />
+        <p>{f.tagline}</p>
+      </div>
+      <div class="footer-section">
+        <h4>{f.nav}</h4>
+        <ul>{t.nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ul>
+      </div>
+      <div class="footer-section">
+        <h4>{f.contacts}</h4>
+        <ul>
+          <li>{f.email} <a href={`mailto:${contacts.email}`}>{contacts.email}</a></li>
+          <li>{f.phone} <a href={`tel:${contacts.phoneTel}`}>{contacts.phone}</a></li>
+          <li>{f.address} {t.address}</li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>{f.social}</h4>
+        <div class="social-links">
+          <span class="social-link">Facebook</span>
+          <span class="social-link">Instagram</span>
+          <span class="social-link">LinkedIn</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{f.rights}</span>
+      <span>{t.company}</span>
+    </div>
+  </div>
+</footer>

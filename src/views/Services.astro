@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Steps from '../components/Steps.astro';
+import Icon from '../components/Icon.astro';
+import { img } from '../data/images';
+import { getDict, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = getDict(lang).services;
+---
+<BaseLayout lang={lang} page="services.html" title={s.meta.title} description={s.meta.description}>
+  <PageHeader wide eyebrow={s.header.eyebrow} title={s.header.title} lead={s.header.lead} />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="split">
+        <div class="reveal">
+          <div class="eyebrow">{s.model.eyebrow}</div>
+          <h2 class="h-lg" style="margin-top:16px;margin-bottom:24px">{s.model.title}</h2>
+          <p class="muted" style="font-size:17px;line-height:1.7">{s.model.text}</p>
+        </div>
+        <div class="reveal">
+          <div class="photo-frame photo-frame--light"><Image src={img.workerCoat} alt={s.model.photoAlt} widths={[480, 720, 960]} sizes="(max-width: 900px) 100vw, 50vw" loading="lazy" style="object-position:70% 40%" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-head reveal"><div class="eyebrow">{s.directions.eyebrow}</div><h2 class="h-xl">{s.directions.title}</h2></div>
+      <div class="grid grid-3 grid--gap-lg">
+        {s.directions.items.map((d) => (
+          <article class="service-card reveal">
+            <div class="top"><div class="icon-tile"><Icon name={d.icon} /></div></div>
+            <h3>{d.title}</h3>
+            <p>{d.text}</p>
+            <ul>{d.items.map((it) => <li>{it}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container">
+      <div class="section-head reveal"><div class="eyebrow">{s.process.eyebrow}</div><h2 class="h-xl">{s.process.title}</h2></div>
+      <Steps items={s.process.steps} heading="h3" />
+    </div>
+  </section>
+
+  <CtaBand lang={lang} title={s.cta.title} text={s.cta.text} button={s.cta.button} />
+</BaseLayout>

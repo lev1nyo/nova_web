@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ProductLine from '../components/ProductLine.astro';
+import Icon from '../components/Icon.astro';
+import { img } from '../data/images';
+import { getDict, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = getDict(lang).products;
+---
+<BaseLayout lang={lang} page="products.html" title={p.meta.title} description={p.meta.description}>
+  <PageHeader wide eyebrow={p.header.eyebrow} title={p.header.title} lead={p.header.lead} />
+
+  <nav class="subnav" aria-label={p.subnavAria}>
+    <div class="container">
+      <a href="#ind"><span class="mono">IND</span>{p.subnav.ind}</a>
+      <a href="#hrc"><span class="mono">HRC</span>{p.subnav.hrc}</a>
+      <a href="#feed"><span class="mono">FEED</span>{p.subnav.feed}</a>
+    </div>
+  </nav>
+
+  <ProductLine lang={lang} id="ind" badge="IND" title={p.ind.title} image={img.bottlingConveyor} alt={p.ind.alt}
+    lead={p.ind.lead} intro={p.ind.intro} items={p.ind.items} applications={p.ind.applications} />
+
+  <ProductLine lang={lang} white id="hrc" badge="HRC" title={p.hrc.title} image={img.kitchenOven} alt={p.hrc.alt}
+    lead={p.hrc.lead} intro={p.hrc.intro} items={p.hrc.items} applications={p.hrc.applications} />
+
+  <ProductLine lang={lang} id="feed" badge="FEED" title={p.feed.title} image={img.feedPoultryHouse} alt={p.feed.alt} position="50% 50%"
+    lead={p.feed.lead} intro={p.feed.intro} detailed={p.feed.items} applications={p.feed.applications} />
+
+  <section class="section section--navy">
+    <div class="container">
+      <div class="split">
+        <div class="reveal">
+          <div class="eyebrow">{p.quality.eyebrow}</div>
+          <h2 class="h-xl" style="margin-top:16px;margin-bottom:28px">{p.quality.title}</h2>
+          <div class="prose-navy">
+            {p.quality.paragraphsHtml.map((html) => <p set:html={html} />)}
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="photo-frame"><Image src={img.labBeaker} alt={p.quality.photoAlt} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 50vw" loading="lazy" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-head reveal"><div class="eyebrow">{p.benefits.eyebrow}</div><h2 class="h-xl">{p.benefits.title}</h2></div>
+      <div class="grid grid-2 grid--gap-lg">
+        {p.benefits.items.map((b) => (
+          <article class="card reveal"><div class="icon-tile"><Icon name="tick" strokeWidth={2} /></div><h3>{b.title}</h3><p>{b.text}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} title={p.cta.title} text={p.cta.text} button={p.cta.button} />
+</BaseLayout>

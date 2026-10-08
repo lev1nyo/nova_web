@@ -1,0 +1,13 @@
+---
+import { getDict, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<a href="index.html" class="logo" aria-label={getDict(lang).common.logoAria}>
+  <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16 2.5l11.5 6.75v13.5L16 29.5 4.5 22.75V9.25z" fill="#102E50"/>
+    <path d="M16 7.5c3.4 4.1 5.2 6.6 5.2 9.3a5.2 5.2 0 01-10.4 0c0-2.7 1.8-5.2 5.2-9.3z" fill="#fff"/>
+    <path d="M13.6 17.2a2.6 2.6 0 002.4 2.7" stroke="#1676C5" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+  </svg>
+  <span class="logo-text">Nova<b>clean</b></span>
+</a>

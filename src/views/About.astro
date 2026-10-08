@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Steps from '../components/Steps.astro';
+import Icon from '../components/Icon.astro';
+import { img } from '../data/images';
+import { getDict, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const a = getDict(lang).about;
+
+// Фото команди та їх кадрування не залежать від мови
+const teamImages = [
+  { image: img.labMicroscope, widths: [480, 720], position: '50% 35%' },
+  { image: img.labPipette, widths: [480, 720], position: '50% 25%' },
+  { image: img.clientHandshake, widths: [480, 720], position: undefined },
+];
+---
+<BaseLayout lang={lang} page="about.html" title={a.meta.title} description={a.meta.description}>
+  <PageHeader eyebrow={a.header.eyebrow} title={a.header.title} lead={a.header.lead} />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="two-col">
+        <div class="sticky-col reveal">
+          <div class="eyebrow">{a.mission.eyebrow}</div>
+          <h2 class="h-lg" style="margin-top:16px">{a.mission.title}</h2>
+          <p class="lead" style="margin-top:20px">{a.mission.text}</p>
+        </div>
+        <div class="grid grid-2">
+          {a.values.map((v) => (
+            <article class="card reveal">
+              <div class="icon-tile"><Icon name={v.icon} /></div>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div style="display:grid;gap:16px"><div class="eyebrow">{a.team.eyebrow}</div><h2 class="h-xl">{a.team.title}</h2></div>
+        <p class="lead">{a.team.lead}</p>
+      </div>
+      <div class="grid grid-3 grid--gap-lg">
+        {a.team.items.map((m, i) => (
+          <article class="team-card reveal">
+            <div class="team-media"><Image src={teamImages[i].image} alt={m.alt} widths={teamImages[i].widths} sizes="(max-width: 640px) 100vw, 400px" loading="lazy" style={teamImages[i].position ? `object-position:${teamImages[i].position}` : undefined} /></div>
+            <div class="team-body"><h3>{m.title}</h3><p>{m.text}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">{a.rd.eyebrow}</div>
+        <h2 class="h-xl">{a.rd.title}</h2>
+        <p class="lead">{a.rd.lead}</p>
+      </div>
+      <div class="two-col">
+        <div class="reveal" style="display:grid;gap:36px">
+          <div><h3 class="h-md" style="margin-bottom:14px">{a.rd.approachTitle}</h3><p class="muted" style="font-size:16.5px;line-height:1.7">{a.rd.approach}</p></div>
+          <div><h3 class="h-md" style="margin-bottom:14px">{a.rd.cooperationTitle}</h3><p class="muted" style="font-size:16.5px;line-height:1.7">{a.rd.cooperation}</p></div>
+        </div>
+        <div class="reveal" style="display:grid;gap:16px">
+          <h3 class="h-md">{a.rd.partnersTitle}</h3>
+          {a.rd.partners.map((p) => (
+            <article class="card"><div class="icon-tile"><Icon name={p.icon} /></div><h4>{p.title}</h4><p>{p.text}</p></article>
+          ))}
+        </div>
+      </div>
+      <div class="two-col reveal" style="margin-top:clamp(48px,7vw,88px)">
+        <h3 class="h-lg">{a.rd.advantagesTitle}</h3>
+        <ul class="check-list">
+          {a.rd.advantages.map((x) => <li><span class="tick"><Icon name="tick" strokeWidth={2.4} /></span><span>{x}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container">
+      <div class="section-head section-head--split reveal">
+        <div style="display:grid;gap:16px"><div class="eyebrow">{a.quality.eyebrow}</div><h2 class="h-xl">{a.quality.title}</h2></div>
+        <p class="lead">{a.quality.lead}</p>
+      </div>
+      <div class="two-col">
+        <div class="reveal" style="display:grid;gap:20px;font-size:16.5px;line-height:1.7;color:var(--on-navy-2)">
+          <div style="display:grid;gap:8px"><h3 style="font-size:22px;line-height:1.3;color:var(--on-navy,#fff)">{a.quality.systemTitle}</h3><p>{a.quality.system}</p></div>
+          <div style="display:grid;gap:8px"><h3 style="font-size:22px;line-height:1.3;color:var(--on-navy,#fff)">{a.quality.docsTitle}</h3><p set:html={a.quality.docsHtml} /></div>
+        </div>
+        <div class="grid grid-2">
+          {a.quality.certs.map((c) => (
+            <article class="card card--navy reveal"><span class="num">{c.tag}</span><h3>{c.title}</h3><p>{c.text}</p></article>
+          ))}
+        </div>
+      </div>
+      <div style="margin-top:clamp(56px,8vw,96px)">
+        <h3 class="h-lg reveal" style="margin-bottom:40px">{a.quality.processTitle}</h3>
+        <Steps items={a.quality.process} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="sticky-col reveal"><div class="eyebrow">{a.history.eyebrow}</div><h2 class="h-xl" style="margin-top:16px">{a.history.title}</h2></div>
+        <div class="prose reveal">
+          {a.history.paragraphs.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} title={a.cta.title} text={a.cta.text} button={a.cta.button} />
+</BaseLayout>

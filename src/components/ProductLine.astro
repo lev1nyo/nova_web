@@ -1,0 +1,68 @@
+---
+// Секція однієї лінійки продукції: ліва колонка (заголовок + візуал) і права (асортимент + застосування)
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Molecule from './Molecule.astro';
+import { getDict, type Lang } from '../i18n';
+
+interface RangeItem { title: string; text: string }
+interface FeedItem { title: string; paragraphs: { label: string; text: string }[] }
+interface Props {
+  lang: Lang;
+  id: string;
+  badge: string;
+  title: string;
+  lead: string;
+  intro: string;
+  image?: ImageMetadata;
+  alt?: string;
+  position?: string;
+  items?: RangeItem[];
+  detailed?: FeedItem[];
+  applications: string[];
+  white?: boolean;
+}
+const { lang, id, badge, title, lead, intro, image, alt = '', position, items = [], detailed = [], applications, white = false } = Astro.props;
+const t = getDict(lang);
+---
+<section class:list={['section', { 'section--white': white }]} id={id}>
+  <div class="container">
+    <div class="two-col">
+      <div class="sticky-col line-head reveal">
+        <div class="eyebrow">{t.products.lineLabel} · {badge}</div>
+        <h2 class="h-xl">{title}</h2>
+        <p class="lead">{lead}</p>
+        {image ? (
+          <>
+            <div class="photo-frame photo-frame--light" style="margin-top:12px"><Image src={image} alt={alt} widths={[480, 720, 960]} sizes="(max-width: 900px) 100vw, 40vw" loading="lazy" style={position ? `object-position:${position}` : undefined} /></div>
+          </>
+        ) : (
+          <div class="photo-frame product-media--art" style="margin-top:12px;aspect-ratio:16/9;display:grid;place-items:center" role="img" aria-label={t.common.moleculeAria}>
+            <div style="width:42%"><Molecule /></div>
+          </div>
+        )}
+      </div>
+      <div class="line-body">
+        <p class="line-intro reveal">{intro}</p>
+        <div>
+          <span class="sub-title">{t.products.rangeLabel}</span>
+          <div class="range-grid">
+            {items.map((it) => (
+              <div class="range-item reveal"><h5>{it.title}</h5><p>{it.text}</p></div>
+            ))}
+            {detailed.map((it) => (
+              <div class="range-item range-item--wide reveal">
+                <h5 style="font-size:20px">{it.title}</h5>
+                {it.paragraphs.map((p) => <p><strong>{p.label}:</strong> {p.text}</p>)}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="sub-title">{t.products.applicationsLabel}</span>
+          <div class="tags">{applications.map((a) => <span class="tag">{a}</span>)}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

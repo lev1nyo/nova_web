@@ -1,0 +1,16 @@
+---
+// Англійська версія: /en/index.html, /en/about.html, … (одна динамічна сторінка замість п'яти дублів).
+// Для `index` build.format: 'file' дає саме en/index.html, а не en.html.
+import Home from '../../views/Home.astro';
+import About from '../../views/About.astro';
+import Products from '../../views/Products.astro';
+import Services from '../../views/Services.astro';
+import Contact from '../../views/Contact.astro';
+
+export function getStaticPaths() {
+  const views = { index: Home, about: About, products: Products, services: Services, contact: Contact };
+  return Object.entries(views).map(([page, View]) => ({ params: { page }, props: { View } }));
+}
+const { View } = Astro.props;
+---
+<View lang="en" />
